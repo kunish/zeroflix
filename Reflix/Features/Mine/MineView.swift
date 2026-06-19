@@ -89,27 +89,26 @@ struct MineView: View {
     // MARK: Segments
 
     private var segmentPills: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: 10) {
-                ForEach(segments) { seg in
-                    let active = segment == seg
-                    Button {
-                        withAnimation(.snappy(duration: 0.25)) { segment = seg }
-                    } label: {
-                        Text(seg.title)
-                            .font(.system(size: 15, weight: active ? .bold : .semibold))
-                            .foregroundStyle(active ? .black : RFX.text2)
-                            .padding(.horizontal, 22)
-                            .padding(.vertical, 11)
-                            .background(active ? AnyShapeStyle(Color.white) : AnyShapeStyle(RFX.card),
-                                        in: Capsule())
-                    }
-                    .buttonStyle(.plain)
+        HStack(spacing: 8) {
+            ForEach(segments) { seg in
+                let active = segment == seg
+                Button {
+                    withAnimation(.snappy(duration: 0.25)) { segment = seg }
+                } label: {
+                    Text(seg.title)
+                        .font(.system(size: 14, weight: active ? .bold : .semibold))
+                        .foregroundStyle(active ? .black : RFX.text2)
+                        .lineLimit(1)
+                        .fixedSize()
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 11)
+                        .background(active ? AnyShapeStyle(Color.white) : AnyShapeStyle(RFX.card),
+                                    in: Capsule())
                 }
+                .buttonStyle(.plain)
             }
-            .padding(.horizontal, 22)
         }
-        .rfxScroll()
+        .padding(.horizontal, 22)
         .padding(.bottom, 6)
     }
 

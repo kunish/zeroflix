@@ -178,11 +178,14 @@ struct DetailView: View {
     // MARK: Action chips (collect to library)
 
     private var actionChips: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: 0) {
             chip(.favorite, icon: "heart", label: "收藏")
+            Spacer(minLength: 8)
             chip(.watching, icon: "play.circle", label: "正在观看")
+            Spacer(minLength: 8)
             chip(.history, icon: "checkmark.circle", label: "看过")
         }
+        .frame(maxWidth: .infinity)
         .padding(.horizontal, 22)
         .padding(.top, 12)
     }
@@ -192,12 +195,14 @@ struct DetailView: View {
         return Button {
             Task { if let s = model.snapshot() { await library.toggle(s, in: list) } }
         } label: {
-            HStack(spacing: 7) {
-                Image(systemName: active ? icon + ".fill" : icon).font(.system(size: 14))
-                Text(label).font(.system(size: 14, weight: .semibold))
+            HStack(spacing: 6) {
+                Image(systemName: active ? icon + ".fill" : icon).font(.system(size: 13))
+                Text(label).font(.system(size: 13, weight: .semibold))
             }
+            .lineLimit(1)
+            .fixedSize()
             .foregroundStyle(active ? .black : RFX.text2)
-            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 20)
             .padding(.vertical, 12)
             .background(active ? AnyShapeStyle(.white) : AnyShapeStyle(RFX.card), in: Capsule())
         }

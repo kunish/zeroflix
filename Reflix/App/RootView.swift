@@ -51,6 +51,11 @@ struct RootView: View {
             router.showSettings = true
         }
 
+        if env["REFLIX_OPEN_BROWSE"] == "genre" {
+            try? await Task.sleep(nanoseconds: 1_200_000_000)
+            router.browse(.genre(GenreCard(name: "剧情 Drama", genreId: 18, colors: [0x3a4a6e, 0x1a2238])))
+        }
+
         if let deepLink = env["REFLIX_OPEN_DETAIL"] {
             let parts = deepLink.split(separator: ":")
             if parts.count == 2, let id = Int(parts[1]),
