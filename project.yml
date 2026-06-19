@@ -1,0 +1,33 @@
+name: Reflix
+options:
+  bundleIdPrefix: com.kunish
+  deploymentTarget:
+    iOS: "26.0"
+  developmentLanguage: zh-Hans
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    TARGETED_DEVICE_FAMILY: "1"
+    CODE_SIGNING_REQUIRED: "NO"
+    CODE_SIGN_IDENTITY: ""
+    CODE_SIGNING_ALLOWED: "NO"
+targets:
+  Reflix:
+    type: application
+    platform: iOS
+    sources:
+      - path: Reflix
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.kunish.reflix
+        GENERATE_INFOPLIST_FILE: "YES"
+        INFOPLIST_KEY_CFBundleDisplayName: Reflix
+        INFOPLIST_KEY_UIUserInterfaceStyle: Dark
+        INFOPLIST_KEY_UILaunchScreen_Generation: "YES"
+        INFOPLIST_KEY_UIStatusBarHidden: "YES"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        ENABLE_PREVIEWS: "YES"
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor

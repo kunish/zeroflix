@@ -1,0 +1,15 @@
+# Xcode / build
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+.DS_Store
+
+# The project is generated from project.yml via `xcodegen generate`,
+# but it is committed so the repo opens directly in Xcode.
+Reflix.xcodeproj/project.xcworkspace/xcuserdata/
+Reflix.xcodeproj/xcuserdata/
+
+# Swift Package Manager
+.swiftpm/
+.build/

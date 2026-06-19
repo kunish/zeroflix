@@ -1,0 +1,146 @@
+import SwiftUI
+
+struct SettingsView: View {
+    @EnvironmentObject private var auth: AuthStore
+    @Environment(\.dismiss) private var dismiss
+    @State private var showKeyEditor = false
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                RFX.bg.ignoresSafeArea()
+                ScrollView {
+                    VStack(spacing: 18) {
+                        accountCard
+                        tmdbCard
+                        signOutButton
+                    }
+                    .padding(20)
+                }
+                .rfxScroll()
+            }
+            .navigationTitle("设置")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("完成") { dismiss() }.fontWeight(.semibold)
+                }
+            }
+            .sheet(isPresented: $showKeyEditor) { KeyEditorView() }
+        }
+        .preferredColorScheme(.dark)
+    }
+
+    private var accountCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Label("账户", systemImage: "person.crop.circle")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(RFX.text4)
+            HStack(spacing: 12) {
+                Circle().fill(RFX.accent.opacity(0.25))
+                    .frame(width: 46, height: 46)
+                    .overlay(Text(initials).font(.system(size: 18, weight: .bold)).foregroundStyle(RFX.accent))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(auth.email).font(.system(size: 16, weight: .bold)).foregroundStyle(.white)
+                    Text("免费会员").font(.system(size: 13)).foregroundStyle(RFX.text3)
+                }
+                Spacer()
+            }
+        }
+        .padding(18)
+        .background(RFX.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+    }
+
+    private var tmdbCard: some View {
+        Button { showKeyEditor = true } label: {
+            HStack(spacing: 12) {
+                Text("🎬").font(.system(size: 20))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("TMDB API Key").font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
+                    Text(KeyStore.hasCustomTMDBKey ? "使用自定义 Key" : "使用内置 Key")
+                        .font(.system(size: 13)).foregroundStyle(RFX.text3)
+                }
+                Spacer()
+                Image(systemName: "chevron.right").font(.system(size: 14, weight: .semibold)).foregroundStyle(RFX.text4)
+            }
+            .padding(18)
+            .background(RFX.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var signOutButton: some View {
+        Button(role: .destructive) {
+            auth.signOut()
+            dismiss()
+        } label: {
+            Text("退出登录")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundStyle(Color(hex: 0xff6b6b))
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 15)
+                .background(RFX.card, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        }
+        .padding(.top, 8)
+    }
+
+    private var initials: String {
+        String(auth.email.prefix(1)).uppercased()
+    }
+}
+
+/// TMDB API key editor — mirrors the source design's key overlay.
+struct KeyEditorView: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var draft = KeyStore.tmdbKey
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.6).ignoresSafeArea()
+            VStack(alignment: .leading, spacing: 0) {
+                Text("TMDB API Key").font(.system(size: 20, weight: .heavy)).foregroundStyle(.white)
+                Text("在 themoviedb.org → 设置 → API 免费申请 v3 Key，粘贴后即可加载真实海报。Key 仅保存在本机。")
+                    .font(.system(size: 13.5))
+                    .foregroundStyle(RFX.text3)
+                    .lineSpacing(4)
+                    .padding(.top, 8)
+
+                TextField("粘贴 API Key (v3 auth)", text: $draft)
+                    .font(.system(size: 15))
+                    .foregroundStyle(.white)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                    .padding(14)
+                    .background(RFX.bg, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(.white.opacity(0.16), lineWidth: 0.5))
+                    .padding(.top, 16)
+
+                HStack(spacing: 10) {
+                    Button {
+                        KeyStore.tmdbKey = AppConfig.tmdbDefaultKey
+                        dismiss()
+                    } label: {
+                        Text("恢复内置").font(.system(size: 15, weight: .bold)).foregroundStyle(RFX.text2)
+                            .frame(maxWidth: .infinity).padding(.vertical, 14)
+                            .background(RFX.cardAlt, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    }
+                    Button {
+                        KeyStore.tmdbKey = draft
+                        dismiss()
+                    } label: {
+                        Text("保存并加载").font(.system(size: 15, weight: .bold)).foregroundStyle(.white)
+                            .frame(maxWidth: .infinity).padding(.vertical, 14)
+                            .background(RFX.accent, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    }
+                }
+                .buttonStyle(.plain)
+                .padding(.top, 16)
+            }
+            .padding(22)
+            .background(RFX.sheet, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 22).stroke(.white.opacity(0.12), lineWidth: 0.5))
+            .padding(.horizontal, 24)
+        }
+        .presentationBackground(.clear)
+    }
+}

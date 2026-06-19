@@ -1,0 +1,529 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		030A85FCBFAB0E22AFC1D02A /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C75523A6ED36922341B3A /* AuthView.swift */; };
+		0C7457745A1923ADF82E99DD /* MediaCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7E879AA7659BCA1EF2196 /* MediaCards.swift */; };
+		16F2ECD2C6F1D6635A1D0906 /* KeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1470B374849FC7BB597727 /* KeyStore.swift */; };
+		2807043C75CC1F8546428169 /* ReflixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965446F5B5A33FD1A273E7C /* ReflixApp.swift */; };
+		36099AD0CC0FFC7A3FEE4E5E /* TMDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74D2A3407F04E3C505BFD4C /* TMDBService.swift */; };
+		42015DB17A34CD420172DB84 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3727320D51ABEB430B76B7AF /* SettingsView.swift */; };
+		448811A7C69D17E1EDE569AE /* MineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7AE6DEA9CD0E1A6F1A964E /* MineView.swift */; };
+		49908B5E3A61433DCF6BD9C9 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9CAEA593FABE00279DF52 /* MineViewModel.swift */; };
+		607D8D038E39C003EA7E6219 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28583EBB9D7A322997C39811 /* Common.swift */; };
+		65B786EDF54090AC4955FDFE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66984B7BA1940A9663C4BE5 /* Theme.swift */; };
+		795C37DA9CEAAE0ED5522D00 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74A4F9D276975EA1032192 /* BrowseView.swift */; };
+		876D701612735278CBFDE92E /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC5E7CF31ED87935B7B2E1 /* DiscoverViewModel.swift */; };
+		94A2AC31BF08ED3D5CDC1DD7 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E2A7CB848788CAF8BCE9F4 /* AppConfig.swift */; };
+		9E035B6BE728BC9CE57EB684 /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C05EC19B98E06F88A14A1A /* Placeholder.swift */; };
+		A5AAF859F7B59A5F44A86685 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D885394BC6D7C502EED31A8 /* DetailView.swift */; };
+		AB7B8B3376FE878AB99BCAF9 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B12FB76CDDE6E94136052C /* Router.swift */; };
+		B02A80FB2132E69E42E51ED4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE98B590CDBEF961513CDB48 /* Assets.xcassets */; };
+		C684B9639C62CA187C63E3AD /* AuthStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C15087E0C9B9BD430DFD65 /* AuthStore.swift */; };
+		CAB8572A9C9B79F9336B8F3B /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EC91E9BC53068CA07C476 /* DiscoverView.swift */; };
+		CAE920BF7FE66C61F49912B5 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F323B4515EFBB017DDEDF4F6 /* RemoteImage.swift */; };
+		CD80CA81C47D316A939E7736 /* MainShell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67D0726DE35DC16D0371CBD /* MainShell.swift */; };
+		D3D29AF2F7C5D38CC8DA67A0 /* TMDBModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BEFFAE807B0B85BECE2B0A /* TMDBModels.swift */; };
+		DF37FA38AE6D571F075F6C1C /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B41E2145B51EC448676D2 /* LibraryStore.swift */; };
+		EA6C3E472C8F42A6BB55091C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A237F3E234F70AE87606901A /* RootView.swift */; };
+		EAC6481A5DE8CB1491CBC479 /* Glass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241783E74ECC9D51A0BC519D /* Glass.swift */; };
+		EC3F48C32B65390527199516 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C140F6C0339964EAC4722555 /* DetailViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		03B12FB76CDDE6E94136052C /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		0A74A4F9D276975EA1032192 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
+		18A7E879AA7659BCA1EF2196 /* MediaCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCards.swift; sourceTree = "<group>"; };
+		1D7AE6DEA9CD0E1A6F1A964E /* MineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineView.swift; sourceTree = "<group>"; };
+		241783E74ECC9D51A0BC519D /* Glass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glass.swift; sourceTree = "<group>"; };
+		2574487E7C95838554124782 /* Reflix.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Reflix.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		28583EBB9D7A322997C39811 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		3727320D51ABEB430B76B7AF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3D885394BC6D7C502EED31A8 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		43E2A7CB848788CAF8BCE9F4 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		494EC91E9BC53068CA07C476 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		64C15087E0C9B9BD430DFD65 /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
+		6D1470B374849FC7BB597727 /* KeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStore.swift; sourceTree = "<group>"; };
+		84BEFFAE807B0B85BECE2B0A /* TMDBModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBModels.swift; sourceTree = "<group>"; };
+		8EBC5E7CF31ED87935B7B2E1 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
+		96C05EC19B98E06F88A14A1A /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
+		9965446F5B5A33FD1A273E7C /* ReflixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflixApp.swift; sourceTree = "<group>"; };
+		A237F3E234F70AE87606901A /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		A74D2A3407F04E3C505BFD4C /* TMDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBService.swift; sourceTree = "<group>"; };
+		C140F6C0339964EAC4722555 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		CE98B590CDBEF961513CDB48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E66984B7BA1940A9663C4BE5 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		F2F9CAEA593FABE00279DF52 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
+		F323B4515EFBB017DDEDF4F6 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
+		F67D0726DE35DC16D0371CBD /* MainShell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainShell.swift; sourceTree = "<group>"; };
+		F92C75523A6ED36922341B3A /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		FD7B41E2145B51EC448676D2 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0EDB3F24B031C055BE2CEC8F /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				EBC1308E74710EFD854F22C1 /* Auth */,
+				80BBD0E167FEAC58ECA6DBBF /* Browse */,
+				73F050F9EA514834FACE46CC /* Detail */,
+				C8D328F964027B96AE5D1869 /* Discover */,
+				7F18B8CEFB84CD42DF79A168 /* Mine */,
+				12B6E836CB423381B1B37FE5 /* Settings */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		1148E7655617BAA89158BE20 /* Reflix */ = {
+			isa = PBXGroup;
+			children = (
+				EC1688D9CDBABD64CD7A9C04 /* App */,
+				CE7917303F855D753A011E42 /* Components */,
+				5DC2D033EBF7A38785158F5D /* Config */,
+				C1326C4B7AD9F5D9754278BE /* DesignSystem */,
+				0EDB3F24B031C055BE2CEC8F /* Features */,
+				81B1E318687B3D4FEFACAC85 /* Models */,
+				8B9FB597626C3B1AD9BD5A05 /* Resources */,
+				C80E864872499615E573CB94 /* Services */,
+			);
+			path = Reflix;
+			sourceTree = "<group>";
+		};
+		12B6E836CB423381B1B37FE5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3727320D51ABEB430B76B7AF /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		5DC2D033EBF7A38785158F5D /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				43E2A7CB848788CAF8BCE9F4 /* AppConfig.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		7298A7D0CC31DC1AF2EE8625 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2574487E7C95838554124782 /* Reflix.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		73F050F9EA514834FACE46CC /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				3D885394BC6D7C502EED31A8 /* DetailView.swift */,
+				C140F6C0339964EAC4722555 /* DetailViewModel.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		7F18B8CEFB84CD42DF79A168 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				1D7AE6DEA9CD0E1A6F1A964E /* MineView.swift */,
+				F2F9CAEA593FABE00279DF52 /* MineViewModel.swift */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		80BBD0E167FEAC58ECA6DBBF /* Browse */ = {
+			isa = PBXGroup;
+			children = (
+				0A74A4F9D276975EA1032192 /* BrowseView.swift */,
+			);
+			path = Browse;
+			sourceTree = "<group>";
+		};
+		81B1E318687B3D4FEFACAC85 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84BEFFAE807B0B85BECE2B0A /* TMDBModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8B9FB597626C3B1AD9BD5A05 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CE98B590CDBEF961513CDB48 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C1326C4B7AD9F5D9754278BE /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				241783E74ECC9D51A0BC519D /* Glass.swift */,
+				96C05EC19B98E06F88A14A1A /* Placeholder.swift */,
+				E66984B7BA1940A9663C4BE5 /* Theme.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		C80E864872499615E573CB94 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				64C15087E0C9B9BD430DFD65 /* AuthStore.swift */,
+				6D1470B374849FC7BB597727 /* KeyStore.swift */,
+				FD7B41E2145B51EC448676D2 /* LibraryStore.swift */,
+				A74D2A3407F04E3C505BFD4C /* TMDBService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C8D328F964027B96AE5D1869 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				494EC91E9BC53068CA07C476 /* DiscoverView.swift */,
+				8EBC5E7CF31ED87935B7B2E1 /* DiscoverViewModel.swift */,
+			);
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		CE7917303F855D753A011E42 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				28583EBB9D7A322997C39811 /* Common.swift */,
+				18A7E879AA7659BCA1EF2196 /* MediaCards.swift */,
+				F323B4515EFBB017DDEDF4F6 /* RemoteImage.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		EBC1308E74710EFD854F22C1 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F92C75523A6ED36922341B3A /* AuthView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		EC1688D9CDBABD64CD7A9C04 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F67D0726DE35DC16D0371CBD /* MainShell.swift */,
+				9965446F5B5A33FD1A273E7C /* ReflixApp.swift */,
+				A237F3E234F70AE87606901A /* RootView.swift */,
+				03B12FB76CDDE6E94136052C /* Router.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		FD611FB001DF370454371852 = {
+			isa = PBXGroup;
+			children = (
+				1148E7655617BAA89158BE20 /* Reflix */,
+				7298A7D0CC31DC1AF2EE8625 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B2DDF4D7F96E621B4586CB75 /* Reflix */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBD802C6FCAC0B46DA0CDD25 /* Build configuration list for PBXNativeTarget "Reflix" */;
+			buildPhases = (
+				1ABB8084C90AF5146B46152E /* Sources */,
+				A88120096686824D6B9FD14B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Reflix;
+			packageProductDependencies = (
+			);
+			productName = Reflix;
+			productReference = 2574487E7C95838554124782 /* Reflix.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		471301E8178C012A6947AAF7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 21503C5FD94427B7886DA821 /* Build configuration list for PBXProject "Reflix" */;
+			developmentRegion = "zh-Hans";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				"zh-Hans",
+			);
+			mainGroup = FD611FB001DF370454371852;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 7298A7D0CC31DC1AF2EE8625 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B2DDF4D7F96E621B4586CB75 /* Reflix */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A88120096686824D6B9FD14B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B02A80FB2132E69E42E51ED4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1ABB8084C90AF5146B46152E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94A2AC31BF08ED3D5CDC1DD7 /* AppConfig.swift in Sources */,
+				C684B9639C62CA187C63E3AD /* AuthStore.swift in Sources */,
+				030A85FCBFAB0E22AFC1D02A /* AuthView.swift in Sources */,
+				795C37DA9CEAAE0ED5522D00 /* BrowseView.swift in Sources */,
+				607D8D038E39C003EA7E6219 /* Common.swift in Sources */,
+				A5AAF859F7B59A5F44A86685 /* DetailView.swift in Sources */,
+				EC3F48C32B65390527199516 /* DetailViewModel.swift in Sources */,
+				CAB8572A9C9B79F9336B8F3B /* DiscoverView.swift in Sources */,
+				876D701612735278CBFDE92E /* DiscoverViewModel.swift in Sources */,
+				EAC6481A5DE8CB1491CBC479 /* Glass.swift in Sources */,
+				16F2ECD2C6F1D6635A1D0906 /* KeyStore.swift in Sources */,
+				DF37FA38AE6D571F075F6C1C /* LibraryStore.swift in Sources */,
+				CD80CA81C47D316A939E7736 /* MainShell.swift in Sources */,
+				0C7457745A1923ADF82E99DD /* MediaCards.swift in Sources */,
+				448811A7C69D17E1EDE569AE /* MineView.swift in Sources */,
+				49908B5E3A61433DCF6BD9C9 /* MineViewModel.swift in Sources */,
+				9E035B6BE728BC9CE57EB684 /* Placeholder.swift in Sources */,
+				2807043C75CC1F8546428169 /* ReflixApp.swift in Sources */,
+				CAE920BF7FE66C61F49912B5 /* RemoteImage.swift in Sources */,
+				EA6C3E472C8F42A6BB55091C /* RootView.swift in Sources */,
+				AB7B8B3376FE878AB99BCAF9 /* Router.swift in Sources */,
+				42015DB17A34CD420172DB84 /* SettingsView.swift in Sources */,
+				D3D29AF2F7C5D38CC8DA67A0 /* TMDBModels.swift in Sources */,
+				36099AD0CC0FFC7A3FEE4E5E /* TMDBService.swift in Sources */,
+				65B786EDF54090AC4955FDFE /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		27680E3CF90B4E499EE57739 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Reflix;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kunish.reflix;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		525783F1E6276C5E2374BA1E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		AE836A57EA2CCA3D2709D2ED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Reflix;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.kunish.reflix;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E9087FF1EF1FF9C176FA2867 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		21503C5FD94427B7886DA821 /* Build configuration list for PBXProject "Reflix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				525783F1E6276C5E2374BA1E /* Debug */,
+				E9087FF1EF1FF9C176FA2867 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EBD802C6FCAC0B46DA0CDD25 /* Build configuration list for PBXNativeTarget "Reflix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE836A57EA2CCA3D2709D2ED /* Debug */,
+				27680E3CF90B4E499EE57739 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 471301E8178C012A6947AAF7 /* Project object */;
+}
