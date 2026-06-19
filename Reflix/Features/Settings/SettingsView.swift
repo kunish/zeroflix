@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @EnvironmentObject private var auth: AuthStore
+    @EnvironmentObject private var plex: PlexStore
     @Environment(\.dismiss) private var dismiss
     @State private var showKeyEditor = false
 
@@ -12,6 +13,7 @@ struct SettingsView: View {
                 ScrollView {
                     VStack(spacing: 18) {
                         accountCard
+                        plexCard
                         tmdbCard
                         signOutButton
                     }
@@ -49,6 +51,68 @@ struct SettingsView: View {
         }
         .padding(18)
         .background(RFX.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+    }
+
+    @ViewBuilder private var plexCard: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Label("Plex 媒体源", systemImage: "play.rectangle.on.rectangle")
+                .font(.system(size: 13, weight: .semibold))
+                .foregroundStyle(RFX.text4)
+
+            if plex.isConnected {
+                HStack(spacing: 12) {
+                    plexLogo
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(plex.username ?? "Plex").font(.system(size: 16, weight: .bold)).foregroundStyle(.white)
+                        Text("已连接 \(plex.serverCount) 台服务器")
+                            .font(.system(size: 13)).foregroundStyle(RFX.text3)
+                    }
+                    Spacer()
+                    Button("断开") { plex.disconnect() }
+                        .font(.system(size: 14, weight: .bold))
+                        .foregroundStyle(Color(hex: 0xff6b6b))
+                }
+            } else {
+                Text("登录 Plex 后，详情页会显示你媒体库里实际可播的资源。")
+                    .font(.system(size: 13))
+                    .foregroundStyle(RFX.text3)
+                    .fixedSize(horizontal: false, vertical: true)
+
+                Button {
+                    Task { await plex.connect() }
+                } label: {
+                    HStack(spacing: 8) {
+                        if plex.isConnecting {
+                            ProgressView().controlSize(.small).tint(.black)
+                        } else {
+                            Image(systemName: "link").font(.system(size: 14, weight: .bold))
+                        }
+                        Text(plex.isConnecting ? "正在连接…" : "连接 Plex 账号")
+                            .font(.system(size: 15, weight: .bold))
+                    }
+                    .foregroundStyle(.black)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 13)
+                    .background(Color(hex: 0xe5a00d), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                }
+                .buttonStyle(.plain)
+                .disabled(plex.isConnecting)
+
+                if let error = plex.errorMessage {
+                    Text(error).font(.system(size: 12.5)).foregroundStyle(Color(hex: 0xff6b6b))
+                }
+            }
+        }
+        .padding(18)
+        .background(RFX.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+    }
+
+    private var plexLogo: some View {
+        Image(systemName: "play.tv.fill")
+            .font(.system(size: 18))
+            .foregroundStyle(Color(hex: 0xe5a00d))
+            .frame(width: 46, height: 46)
+            .background(Color(hex: 0xe5a00d).opacity(0.18), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 
     private var tmdbCard: some View {

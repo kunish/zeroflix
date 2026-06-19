@@ -21,14 +21,24 @@ enum KeyStore {
     static var hasCustomTMDBKey: Bool {
         defaults.string(forKey: tmdbKeyName) != nil
     }
+
+    /// Stable per-install Plex client identifier (not secret).
+    static var plexClientID: String {
+        let key = "reflix_plex_client_id"
+        if let existing = defaults.string(forKey: key) { return existing }
+        let generated = UUID().uuidString
+        defaults.set(generated, forKey: key)
+        return generated
+    }
 }
 
-/// Minimal Keychain wrapper for the Supabase session blob.
+/// Minimal Keychain wrapper. Multiple blobs are keyed by `account`.
 enum Keychain {
-    private static let account = "reflix.supabase.session"
+    static let supabaseAccount = "reflix.supabase.session"
+    static let plexAccount = "reflix.plex.credential"
     private static let service = "com.kunish.reflix"
 
-    static func save(_ data: Data) {
+    static func save(_ data: Data, account: String = supabaseAccount) {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -41,7 +51,7 @@ enum Keychain {
         SecItemAdd(attrs as CFDictionary, nil)
     }
 
-    static func load() -> Data? {
+    static func load(account: String = supabaseAccount) -> Data? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -55,7 +65,7 @@ enum Keychain {
         return result as? Data
     }
 
-    static func clear() {
+    static func clear(account: String = supabaseAccount) {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,

@@ -6,6 +6,10 @@ final class DetailViewModel: ObservableObject {
     @Published var isLoading = true
     @Published var error: String?
 
+    @Published var plexMatch: PlexMatch?
+    @Published var isCheckingPlex = false
+    private var plexChecked = false
+
     let ref: MediaRef
     init(ref: MediaRef) { self.ref = ref }
 
@@ -18,6 +22,15 @@ final class DetailViewModel: ObservableObject {
             self.error = (error as? LocalizedError)?.errorDescription ?? "加载详情失败"
         }
         isLoading = false
+    }
+
+    /// Looks the title up in the user's connected Plex libraries (once).
+    func loadPlexSource(_ store: PlexStore) async {
+        guard store.isConnected, let detail, !plexChecked else { return }
+        plexChecked = true
+        isCheckingPlex = true
+        plexMatch = await store.findSource(ref: ref, title: detail.displayTitle, year: detail.year)
+        isCheckingPlex = false
     }
 
     /// A snapshot that can be persisted to the user's library.

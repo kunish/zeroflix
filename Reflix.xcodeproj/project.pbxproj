@@ -15,10 +15,13 @@
 		42015DB17A34CD420172DB84 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3727320D51ABEB430B76B7AF /* SettingsView.swift */; };
 		448811A7C69D17E1EDE569AE /* MineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7AE6DEA9CD0E1A6F1A964E /* MineView.swift */; };
 		49908B5E3A61433DCF6BD9C9 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F9CAEA593FABE00279DF52 /* MineViewModel.swift */; };
+		5CB7CC80F67C65866564CD5B /* PlexService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1B680CA26187D4EB91A9F /* PlexService.swift */; };
 		607D8D038E39C003EA7E6219 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28583EBB9D7A322997C39811 /* Common.swift */; };
 		65B786EDF54090AC4955FDFE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66984B7BA1940A9663C4BE5 /* Theme.swift */; };
+		76CF8583F8341542885F64B8 /* PlexModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA2C942C241B0A28D81498E /* PlexModels.swift */; };
 		795C37DA9CEAAE0ED5522D00 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74A4F9D276975EA1032192 /* BrowseView.swift */; };
 		876D701612735278CBFDE92E /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC5E7CF31ED87935B7B2E1 /* DiscoverViewModel.swift */; };
+		898C5BCC32F7167143544813 /* PlexAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDCEDDA0FCA06BF9B8EB67B7 /* PlexAuth.swift */; };
 		94A2AC31BF08ED3D5CDC1DD7 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E2A7CB848788CAF8BCE9F4 /* AppConfig.swift */; };
 		9E035B6BE728BC9CE57EB684 /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C05EC19B98E06F88A14A1A /* Placeholder.swift */; };
 		A5AAF859F7B59A5F44A86685 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D885394BC6D7C502EED31A8 /* DetailView.swift */; };
@@ -45,6 +48,7 @@
 		28583EBB9D7A322997C39811 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		3727320D51ABEB430B76B7AF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3D885394BC6D7C502EED31A8 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		41F1B680CA26187D4EB91A9F /* PlexService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlexService.swift; sourceTree = "<group>"; };
 		43E2A7CB848788CAF8BCE9F4 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		494EC91E9BC53068CA07C476 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		64C15087E0C9B9BD430DFD65 /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
@@ -53,6 +57,7 @@
 		8EBC5E7CF31ED87935B7B2E1 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 		96C05EC19B98E06F88A14A1A /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		9965446F5B5A33FD1A273E7C /* ReflixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReflixApp.swift; sourceTree = "<group>"; };
+		9FA2C942C241B0A28D81498E /* PlexModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlexModels.swift; sourceTree = "<group>"; };
 		A237F3E234F70AE87606901A /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		A74D2A3407F04E3C505BFD4C /* TMDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBService.swift; sourceTree = "<group>"; };
 		C140F6C0339964EAC4722555 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
@@ -63,6 +68,7 @@
 		F67D0726DE35DC16D0371CBD /* MainShell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainShell.swift; sourceTree = "<group>"; };
 		F92C75523A6ED36922341B3A /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		FD7B41E2145B51EC448676D2 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
+		FDCEDDA0FCA06BF9B8EB67B7 /* PlexAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlexAuth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -147,6 +153,7 @@
 		81B1E318687B3D4FEFACAC85 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9FA2C942C241B0A28D81498E /* PlexModels.swift */,
 				84BEFFAE807B0B85BECE2B0A /* TMDBModels.swift */,
 			);
 			path = Models;
@@ -176,6 +183,8 @@
 				64C15087E0C9B9BD430DFD65 /* AuthStore.swift */,
 				6D1470B374849FC7BB597727 /* KeyStore.swift */,
 				FD7B41E2145B51EC448676D2 /* LibraryStore.swift */,
+				FDCEDDA0FCA06BF9B8EB67B7 /* PlexAuth.swift */,
+				41F1B680CA26187D4EB91A9F /* PlexService.swift */,
 				A74D2A3407F04E3C505BFD4C /* TMDBService.swift */,
 			);
 			path = Services;
@@ -257,6 +266,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					B2DDF4D7F96E621B4586CB75 = {
+						ProvisioningStyle = Manual;
+					};
 				};
 			};
 			buildConfigurationList = 21503C5FD94427B7886DA821 /* Build configuration list for PBXProject "Reflix" */;
@@ -311,6 +323,9 @@
 				448811A7C69D17E1EDE569AE /* MineView.swift in Sources */,
 				49908B5E3A61433DCF6BD9C9 /* MineViewModel.swift in Sources */,
 				9E035B6BE728BC9CE57EB684 /* Placeholder.swift in Sources */,
+				898C5BCC32F7167143544813 /* PlexAuth.swift in Sources */,
+				76CF8583F8341542885F64B8 /* PlexModels.swift in Sources */,
+				5CB7CC80F67C65866564CD5B /* PlexService.swift in Sources */,
 				2807043C75CC1F8546428169 /* ReflixApp.swift in Sources */,
 				CAE920BF7FE66C61F49912B5 /* RemoteImage.swift in Sources */,
 				EA6C3E472C8F42A6BB55091C /* RootView.swift in Sources */,
@@ -335,7 +350,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Reflix;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -381,9 +395,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -427,7 +440,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Reflix;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIStatusBarHidden = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -473,9 +485,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
-				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

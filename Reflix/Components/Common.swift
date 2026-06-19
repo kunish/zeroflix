@@ -1,31 +1,5 @@
 import SwiftUI
 
-/// The faux iOS status bar drawn by the source design (real one is hidden).
-struct StatusBarRow: View {
-    var body: some View {
-        HStack {
-            Text("20:51")
-                .font(.system(size: 16, weight: .semibold))
-                .kerning(0.3)
-            Spacer()
-            HStack(spacing: 7) {
-                Text("▪▪▪▪").font(.system(size: 13)).kerning(1)
-                Image(systemName: "wifi").font(.system(size: 13, weight: .semibold))
-                Text("66")
-                    .font(.system(size: 11, weight: .bold))
-                    .foregroundStyle(.black)
-                    .padding(.horizontal, 5)
-                    .padding(.vertical, 1)
-                    .background(RFX.green, in: RoundedRectangle(cornerRadius: 5))
-            }
-        }
-        .foregroundStyle(RFX.text)
-        .padding(.horizontal, 26)
-        .padding(.top, 14)
-        .padding(.bottom, 2)
-    }
-}
-
 /// "今日热门剧集 ›" style section header.
 struct SectionHeader: View {
     let title: String

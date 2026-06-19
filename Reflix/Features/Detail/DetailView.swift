@@ -5,7 +5,9 @@ struct DetailView: View {
 
     @EnvironmentObject private var router: Router
     @EnvironmentObject private var library: LibraryStore
+    @EnvironmentObject private var plex: PlexStore
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
     @StateObject private var model: DetailViewModel
 
     init(ref: MediaRef) {
@@ -31,12 +33,43 @@ struct DetailView: View {
             }
             .rfxScroll()
             .ignoresSafeArea(edges: .top)
-
-            topBar
         }
         .navigationBarBackButtonHidden(true)
-        .toolbar(.hidden, for: .navigationBar)
-        .task { await model.load() }
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbar { detailToolbar }
+        .tint(.white)
+        .task {
+            await model.load()
+            await model.loadPlexSource(plex)
+        }
+    }
+
+    // MARK: Toolbar (system nav bar → Liquid Glass + interactive swipe-back)
+
+    @ToolbarContentBuilder
+    private var detailToolbar: some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            Button { dismiss() } label: {
+                Image(systemName: "chevron.left").fontWeight(.semibold)
+            }
+            .buttonStyle(.glass)
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+            Button {
+                Task { if let snapshot = model.snapshot() { await library.toggle(snapshot, in: .watchLater) } }
+            } label: {
+                let saved = library.contains(ref: ref, in: .watchLater)
+                Image(systemName: saved ? "bookmark.fill" : "bookmark")
+                    .foregroundStyle(saved ? RFX.accent : .white)
+            }
+            .buttonStyle(.glass)
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+            Button { } label: {
+                Image(systemName: "square.and.arrow.up")
+            }
+            .buttonStyle(.glass)
+        }
     }
 
     // MARK: Hero
@@ -82,49 +115,64 @@ struct DetailView: View {
         .frame(height: 640)
     }
 
-    // MARK: Top bar
+    // MARK: Source card — Plex-aware
 
-    private var topBar: some View {
-        HStack {
-            circleButton("chevron.left") { dismiss() }
-            Spacer()
-            HStack(spacing: 12) {
-                let saved = library.contains(ref: ref, in: .watchLater)
-                circleButton(saved ? "bookmark.fill" : "bookmark", tint: saved ? RFX.accent : nil) {
-                    Task { if let s = model.snapshot() { await library.toggle(s, in: .watchLater) } }
-                }
-                circleButton("square.and.arrow.up") { }
+    @ViewBuilder private var sourceCard: some View {
+        Group {
+            if let match = model.plexMatch {
+                plexFoundCard(match)
+            } else if model.isCheckingPlex {
+                sourceLabel(icon: "magnifyingglass", text: "正在 Plex 中查找…", tint: RFX.text3, spin: true)
+            } else if plex.isConnected {
+                sourceLabel(icon: "nosign", text: "Plex 中暂无此资源", tint: Color(hex: 0xe6e6e8))
+            } else {
+                sourceLabel(icon: "nosign", text: "没有找到可用资源", tint: Color(hex: 0xe6e6e8))
             }
         }
-        .padding(.horizontal, 18)
-        .padding(.top, 8)
+        .padding(.horizontal, 22)
+        .padding(.top, 4)
     }
 
-    private func circleButton(_ systemName: String, tint: Color? = nil, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Image(systemName: systemName)
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundStyle(tint ?? .white)
-                .frame(width: 38, height: 38)
-                .glassCircle()
+    private func sourceLabel(icon: String, text: String, tint: Color, spin: Bool = false) -> some View {
+        HStack(spacing: 10) {
+            if spin {
+                ProgressView().controlSize(.small).tint(tint)
+            } else {
+                Image(systemName: icon).font(.system(size: 17)).opacity(0.7)
+            }
+            Text(text).font(.system(size: 18, weight: .bold))
+        }
+        .foregroundStyle(tint)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 18)
+        .glassRoundedRect(18)
+    }
+
+    private func plexFoundCard(_ match: PlexMatch) -> some View {
+        Button {
+            openURL(match.deepLink)
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "play.circle.fill").font(.system(size: 22))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("在 Plex 播放").font(.system(size: 17, weight: .heavy))
+                    Text(plexSubtitle(match)).font(.system(size: 12.5)).foregroundStyle(RFX.text2)
+                }
+                Spacer()
+                Image(systemName: "arrow.up.forward.app").font(.system(size: 17)).opacity(0.8)
+            }
+            .foregroundStyle(.white)
+            .padding(.horizontal, 18)
+            .padding(.vertical, 16)
+            .glassRoundedRect(18, interactive: true, tint: Color(hex: 0xe5a00d))
         }
         .buttonStyle(.plain)
     }
 
-    // MARK: Source card (faithful "没有找到可用资源")
-
-    private var sourceCard: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "nosign").font(.system(size: 17)).opacity(0.7)
-            Text("没有找到可用资源")
-                .font(.system(size: 18, weight: .bold))
-        }
-        .foregroundStyle(Color(hex: 0xe6e6e8))
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 18)
-        .glassRoundedRect(18)
-        .padding(.horizontal, 22)
-        .padding(.top, 4)
+    private func plexSubtitle(_ match: PlexMatch) -> String {
+        var parts = [match.serverName]
+        if let resolution = match.resolution { parts.append(resolution) }
+        return parts.joined(separator: " · ")
     }
 
     // MARK: Action chips (collect to library)

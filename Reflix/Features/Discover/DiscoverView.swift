@@ -7,7 +7,6 @@ struct DiscoverView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                StatusBarRow()
                 titleRow
 
                 if let error = model.loadError, model.heroes.isEmpty {

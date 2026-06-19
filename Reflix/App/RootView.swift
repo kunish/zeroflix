@@ -46,6 +46,11 @@ struct RootView: View {
 
         if env["REFLIX_START_TAB"] == "mine" { router.tab = .mine }
 
+        if env["REFLIX_OPEN_SETTINGS"] == "1" {
+            try? await Task.sleep(nanoseconds: 900_000_000)
+            router.showSettings = true
+        }
+
         if let deepLink = env["REFLIX_OPEN_DETAIL"] {
             let parts = deepLink.split(separator: ":")
             if parts.count == 2, let id = Int(parts[1]),

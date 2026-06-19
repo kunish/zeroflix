@@ -12,7 +12,6 @@ struct MineView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                StatusBarRow()
                 titleRow
                 proBanner
                 featured

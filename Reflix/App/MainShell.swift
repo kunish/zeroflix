@@ -52,6 +52,10 @@ struct TabBarView: View {
         .overlay(
             Capsule().stroke(Color.white.opacity(0.18), lineWidth: 0.5)
         )
+        // Absorb taps across the whole capsule so they don't fall through to
+        // the scrolling cards behind the floating bar.
+        .contentShape(Capsule())
+        .onTapGesture { }
         .shadow(color: .black.opacity(0.45), radius: 16, y: 10)
     }
 

@@ -14,4 +14,15 @@ enum AppConfig {
     static var supabaseRestURL: String { supabaseURL + "/rest/v1" }
     static var supabaseAuthURL: String { supabaseURL + "/auth/v1" }
     static var supabaseFunctionsURL: String { supabaseURL + "/functions/v1" }
+
+    // MARK: Plex
+    static let plexProduct = "Reflix"
+    static let plexVersion = "1.0"
+    static let plexPinsURL = "https://plex.tv/api/v2/pins"
+    static let plexAuthAppURL = "https://app.plex.tv/auth"
+    static let plexResourcesURL = "https://plex.tv/api/v2/resources"
+    static let plexUserURL = "https://plex.tv/api/v2/user"
+    /// ASWebAuthenticationSession callback scheme (no Info.plist registration needed).
+    static let plexCallbackScheme = "reflix"
+    static let plexForwardURL = "reflix://plex-auth"
 }

@@ -5,6 +5,7 @@ struct ReflixApp: App {
     @StateObject private var auth: AuthStore
     @StateObject private var library: LibraryStore
     @StateObject private var router = Router()
+    @StateObject private var plex = PlexStore()
 
     init() {
         let auth = AuthStore()
@@ -18,6 +19,7 @@ struct ReflixApp: App {
                 .environmentObject(auth)
                 .environmentObject(library)
                 .environmentObject(router)
+                .environmentObject(plex)
                 .preferredColorScheme(.dark)
                 .tint(RFX.accent)
         }
