@@ -86,7 +86,7 @@ final class TMDBService {
 
     func detail(_ ref: MediaRef) async throws -> TMDBDetail {
         let q = [
-            URLQueryItem(name: "append_to_response", value: "credits,similar,images"),
+            URLQueryItem(name: "append_to_response", value: "credits,similar,images,external_ids"),
             URLQueryItem(name: "include_image_language", value: "en,null,zh"),
         ]
         return try await get("/\(ref.type.rawValue)/\(ref.id)", query: q)

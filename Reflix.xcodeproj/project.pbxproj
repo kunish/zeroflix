@@ -10,7 +10,9 @@
 		030A85FCBFAB0E22AFC1D02A /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C75523A6ED36922341B3A /* AuthView.swift */; };
 		0C7457745A1923ADF82E99DD /* MediaCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7E879AA7659BCA1EF2196 /* MediaCards.swift */; };
 		16F2ECD2C6F1D6635A1D0906 /* KeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1470B374849FC7BB597727 /* KeyStore.swift */; };
+		25A513349508703F3BB25059 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB260B9C8A32CD762B165361 /* PlayerViewModel.swift */; };
 		2807043C75CC1F8546428169 /* ReflixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965446F5B5A33FD1A273E7C /* ReflixApp.swift */; };
+		34902709EA554EA9027B2B6D /* SubtitleParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE1523723D295F562A5FBFC /* SubtitleParser.swift */; };
 		36099AD0CC0FFC7A3FEE4E5E /* TMDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74D2A3407F04E3C505BFD4C /* TMDBService.swift */; };
 		42015DB17A34CD420172DB84 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3727320D51ABEB430B76B7AF /* SettingsView.swift */; };
 		448811A7C69D17E1EDE569AE /* MineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7AE6DEA9CD0E1A6F1A964E /* MineView.swift */; };
@@ -18,6 +20,8 @@
 		5CB7CC80F67C65866564CD5B /* PlexService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1B680CA26187D4EB91A9F /* PlexService.swift */; };
 		607D8D038E39C003EA7E6219 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28583EBB9D7A322997C39811 /* Common.swift */; };
 		65B786EDF54090AC4955FDFE /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66984B7BA1940A9663C4BE5 /* Theme.swift */; };
+		6D81BA94A3AC44B3EDF14B67 /* PlayerContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C8DA7ABA2089F796924EE6 /* PlayerContext.swift */; };
+		6E1EE047CBEEBE54E03C6524 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB46773AC405CC59FE3DE95E /* PlayerView.swift */; };
 		76CF8583F8341542885F64B8 /* PlexModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA2C942C241B0A28D81498E /* PlexModels.swift */; };
 		795C37DA9CEAAE0ED5522D00 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A74A4F9D276975EA1032192 /* BrowseView.swift */; };
 		876D701612735278CBFDE92E /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EBC5E7CF31ED87935B7B2E1 /* DiscoverViewModel.swift */; };
@@ -31,6 +35,7 @@
 		CAB8572A9C9B79F9336B8F3B /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494EC91E9BC53068CA07C476 /* DiscoverView.swift */; };
 		CAE920BF7FE66C61F49912B5 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F323B4515EFBB017DDEDF4F6 /* RemoteImage.swift */; };
 		CD80CA81C47D316A939E7736 /* MainShell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67D0726DE35DC16D0371CBD /* MainShell.swift */; };
+		D07F61C6308C29AEAE95B2E5 /* OpenSubtitlesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739D2A5E810402C299329585 /* OpenSubtitlesService.swift */; };
 		D3D29AF2F7C5D38CC8DA67A0 /* TMDBModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BEFFAE807B0B85BECE2B0A /* TMDBModels.swift */; };
 		DF37FA38AE6D571F075F6C1C /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7B41E2145B51EC448676D2 /* LibraryStore.swift */; };
 		EA6C3E472C8F42A6BB55091C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A237F3E234F70AE87606901A /* RootView.swift */; };
@@ -44,6 +49,7 @@
 		18A7E879AA7659BCA1EF2196 /* MediaCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCards.swift; sourceTree = "<group>"; };
 		1D7AE6DEA9CD0E1A6F1A964E /* MineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineView.swift; sourceTree = "<group>"; };
 		241783E74ECC9D51A0BC519D /* Glass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Glass.swift; sourceTree = "<group>"; };
+		242EE2FC7B48A82A5CC4F966 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2574487E7C95838554124782 /* Reflix.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Reflix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28583EBB9D7A322997C39811 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		3727320D51ABEB430B76B7AF /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -53,6 +59,7 @@
 		494EC91E9BC53068CA07C476 /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		64C15087E0C9B9BD430DFD65 /* AuthStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthStore.swift; sourceTree = "<group>"; };
 		6D1470B374849FC7BB597727 /* KeyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStore.swift; sourceTree = "<group>"; };
+		739D2A5E810402C299329585 /* OpenSubtitlesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSubtitlesService.swift; sourceTree = "<group>"; };
 		84BEFFAE807B0B85BECE2B0A /* TMDBModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBModels.swift; sourceTree = "<group>"; };
 		8EBC5E7CF31ED87935B7B2E1 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 		96C05EC19B98E06F88A14A1A /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
@@ -62,7 +69,11 @@
 		A74D2A3407F04E3C505BFD4C /* TMDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBService.swift; sourceTree = "<group>"; };
 		C140F6C0339964EAC4722555 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		CE98B590CDBEF961513CDB48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CEE1523723D295F562A5FBFC /* SubtitleParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleParser.swift; sourceTree = "<group>"; };
+		D7C8DA7ABA2089F796924EE6 /* PlayerContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerContext.swift; sourceTree = "<group>"; };
 		E66984B7BA1940A9663C4BE5 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		EB260B9C8A32CD762B165361 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		EB46773AC405CC59FE3DE95E /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		F2F9CAEA593FABE00279DF52 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		F323B4515EFBB017DDEDF4F6 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		F67D0726DE35DC16D0371CBD /* MainShell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainShell.swift; sourceTree = "<group>"; };
@@ -80,6 +91,7 @@
 				73F050F9EA514834FACE46CC /* Detail */,
 				C8D328F964027B96AE5D1869 /* Discover */,
 				7F18B8CEFB84CD42DF79A168 /* Mine */,
+				4E2EC0DFD3156AA2A0ABDFE4 /* Player */,
 				12B6E836CB423381B1B37FE5 /* Settings */,
 			);
 			path = Features;
@@ -88,6 +100,7 @@
 		1148E7655617BAA89158BE20 /* Reflix */ = {
 			isa = PBXGroup;
 			children = (
+				242EE2FC7B48A82A5CC4F966 /* Info.plist */,
 				EC1688D9CDBABD64CD7A9C04 /* App */,
 				CE7917303F855D753A011E42 /* Components */,
 				5DC2D033EBF7A38785158F5D /* Config */,
@@ -106,6 +119,16 @@
 				3727320D51ABEB430B76B7AF /* SettingsView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		4E2EC0DFD3156AA2A0ABDFE4 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				D7C8DA7ABA2089F796924EE6 /* PlayerContext.swift */,
+				EB46773AC405CC59FE3DE95E /* PlayerView.swift */,
+				EB260B9C8A32CD762B165361 /* PlayerViewModel.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 		5DC2D033EBF7A38785158F5D /* Config */ = {
@@ -183,8 +206,10 @@
 				64C15087E0C9B9BD430DFD65 /* AuthStore.swift */,
 				6D1470B374849FC7BB597727 /* KeyStore.swift */,
 				FD7B41E2145B51EC448676D2 /* LibraryStore.swift */,
+				739D2A5E810402C299329585 /* OpenSubtitlesService.swift */,
 				FDCEDDA0FCA06BF9B8EB67B7 /* PlexAuth.swift */,
 				41F1B680CA26187D4EB91A9F /* PlexService.swift */,
+				CEE1523723D295F562A5FBFC /* SubtitleParser.swift */,
 				A74D2A3407F04E3C505BFD4C /* TMDBService.swift */,
 			);
 			path = Services;
@@ -322,7 +347,11 @@
 				0C7457745A1923ADF82E99DD /* MediaCards.swift in Sources */,
 				448811A7C69D17E1EDE569AE /* MineView.swift in Sources */,
 				49908B5E3A61433DCF6BD9C9 /* MineViewModel.swift in Sources */,
+				D07F61C6308C29AEAE95B2E5 /* OpenSubtitlesService.swift in Sources */,
 				9E035B6BE728BC9CE57EB684 /* Placeholder.swift in Sources */,
+				6D81BA94A3AC44B3EDF14B67 /* PlayerContext.swift in Sources */,
+				6E1EE047CBEEBE54E03C6524 /* PlayerView.swift in Sources */,
+				25A513349508703F3BB25059 /* PlayerViewModel.swift in Sources */,
 				898C5BCC32F7167143544813 /* PlexAuth.swift in Sources */,
 				76CF8583F8341542885F64B8 /* PlexModels.swift in Sources */,
 				5CB7CC80F67C65866564CD5B /* PlexService.swift in Sources */,
@@ -331,6 +360,7 @@
 				EA6C3E472C8F42A6BB55091C /* RootView.swift in Sources */,
 				AB7B8B3376FE878AB99BCAF9 /* Router.swift in Sources */,
 				42015DB17A34CD420172DB84 /* SettingsView.swift in Sources */,
+				34902709EA554EA9027B2B6D /* SubtitleParser.swift in Sources */,
 				D3D29AF2F7C5D38CC8DA67A0 /* TMDBModels.swift in Sources */,
 				36099AD0CC0FFC7A3FEE4E5E /* TMDBService.swift in Sources */,
 				65B786EDF54090AC4955FDFE /* Theme.swift in Sources */,
@@ -347,11 +377,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Reflix;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				INFOPLIST_FILE = Reflix/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -437,11 +463,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Reflix;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				INFOPLIST_FILE = Reflix/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -36,6 +36,7 @@ enum KeyStore {
 enum Keychain {
     static let supabaseAccount = "reflix.supabase.session"
     static let plexAccount = "reflix.plex.credential"
+    static let openSubtitlesAccount = "reflix.opensubtitles.config"
     private static let service = "com.kunish.reflix"
 
     static func save(_ data: Data, account: String = supabaseAccount) {

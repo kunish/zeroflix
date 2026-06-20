@@ -51,6 +51,8 @@ struct PlexServer: Identifiable, Hashable {
     let machineIdentifier: String
     let accessToken: String
     let connectionURIs: [URL]
+    /// Relay (plex.tv-proxied) URIs — bandwidth-throttled, so never direct-play over these.
+    let relayURIs: Set<URL>
     var id: String { machineIdentifier }
 }
 
@@ -71,12 +73,13 @@ struct PlexMetadata: Decodable {
     let title: String?
     let type: String?
     let year: Int?
+    let duration: Int?          // ms
     let guid: String?
     let media: [PlexMedia]?
     let guids: [PlexGuid]?
 
     enum CodingKeys: String, CodingKey {
-        case ratingKey, title, type, year, guid
+        case ratingKey, title, type, year, duration, guid
         case media = "Media"
         case guids = "Guid"
     }
@@ -104,12 +107,72 @@ struct PlexGuid: Decodable {
 }
 
 struct PlexMedia: Decodable {
+    let id: Int?
     let videoResolution: String?
+    let container: String?
+    let videoCodec: String?
+    let audioCodec: String?
+    let bitrate: Int?           // kbps
+    let width: Int?
+    let height: Int?
+    let duration: Int?          // ms
+    let parts: [PlexPart]?
+
+    enum CodingKeys: String, CodingKey {
+        case id, videoResolution, container, videoCodec, audioCodec, bitrate, width, height, duration
+        case parts = "Part"
+    }
+
+    /// `1920x1080` for the transcoder's `videoResolution` param, if known.
+    var pixelResolution: String? {
+        guard let width, let height, width > 0, height > 0 else { return nil }
+        return "\(width)x\(height)"
+    }
 }
 
-/// A concrete playable match surfaced on the detail page.
+struct PlexPart: Decodable {
+    let id: Int?
+    let key: String?           // e.g. /library/parts/12345/167.../file.mkv
+    let container: String?
+    let duration: Int?         // ms
+    let size: Int?
+    let streams: [PlexStream]?
+
+    enum CodingKeys: String, CodingKey {
+        case id, key, container, duration, size
+        case streams = "Stream"
+    }
+}
+
+/// A track inside a Part. `streamType`: 1=video, 2=audio, 3=subtitle.
+struct PlexStream: Decodable {
+    let id: Int?
+    let streamType: Int?
+    let codec: String?
+    let language: String?
+    let languageCode: String?
+    let displayTitle: String?
+    let selected: Bool?
+    let forced: Bool?
+}
+
+/// A concrete playable match surfaced on the detail page. Carries enough
+/// context (server + ratingKey) to resolve a stream URL for in-app playback.
 struct PlexMatch: Hashable {
     let serverName: String
     let resolution: String?
+    let server: PlexServer
+    let ratingKey: String
     let deepLink: URL
+}
+
+/// A resolved Plex stream ready to feed AVPlayer (direct file or HLS playlist).
+struct PlexPlayable {
+    let url: URL               // AVPlayer source
+    let isTranscoded: Bool     // true → HLS transcode session that must be stopped
+    let title: String
+    let durationSeconds: Double?
+    let base: URL              // reachable server base (for /stop)
+    let token: String          // server accessToken
+    let session: String?       // transcode session id, nil when direct play
 }
