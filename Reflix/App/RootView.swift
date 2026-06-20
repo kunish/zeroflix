@@ -29,6 +29,7 @@ struct RootView: View {
     private func debugAutoLoginIfNeeded() async {
         #if DEBUG
         let env = ProcessInfo.processInfo.environment
+        if env["REFLIX_FORCE_LOGOUT"] == "1" { auth.signOut() }
         if !auth.isAuthenticated,
            let email = env["REFLIX_AUTOLOGIN_EMAIL"],
            let password = env["REFLIX_AUTOLOGIN_PASSWORD"] {
