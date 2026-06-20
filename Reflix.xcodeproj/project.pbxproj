@@ -11,6 +11,7 @@
 		05239F310EF7AB38D9514EE7 /* ImageStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44EE9DDD3E41F652D6584730 /* ImageStoreTests.swift */; };
 		0C7457745A1923ADF82E99DD /* MediaCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7E879AA7659BCA1EF2196 /* MediaCards.swift */; };
 		16F2ECD2C6F1D6635A1D0906 /* KeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1470B374849FC7BB597727 /* KeyStore.swift */; };
+		1F772BDFC99BA1D2C279E3C0 /* MediaCodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F862483C675B24DA0521695F /* MediaCodingTests.swift */; };
 		2628F6A94CE0217967A8998F /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF8832E891C3D673BE79C6D /* ImageStore.swift */; };
 		2807043C75CC1F8546428169 /* ReflixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9965446F5B5A33FD1A273E7C /* ReflixApp.swift */; };
 		36099AD0CC0FFC7A3FEE4E5E /* TMDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A74D2A3407F04E3C505BFD4C /* TMDBService.swift */; };
@@ -89,6 +90,7 @@
 		F2F9CAEA593FABE00279DF52 /* MineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
 		F323B4515EFBB017DDEDF4F6 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		F67D0726DE35DC16D0371CBD /* MainShell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainShell.swift; sourceTree = "<group>"; };
+		F862483C675B24DA0521695F /* MediaCodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCodingTests.swift; sourceTree = "<group>"; };
 		F92C75523A6ED36922341B3A /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		FD7B41E2145B51EC448676D2 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		FDCEDDA0FCA06BF9B8EB67B7 /* PlexAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlexAuth.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				E23BBEFD3C7FB6B603CEE76A /* CacheFreshnessTests.swift */,
 				0A2DEABD16C6F22BFB2418F5 /* DiskCacheTests.swift */,
 				44EE9DDD3E41F652D6584730 /* ImageStoreTests.swift */,
+				F862483C675B24DA0521695F /* MediaCodingTests.swift */,
 			);
 			path = ReflixTests;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 				F8C2F41474254918474BE8BE /* CacheFreshnessTests.swift in Sources */,
 				DA9E2BFC1B8630876BF31B97 /* DiskCacheTests.swift in Sources */,
 				05239F310EF7AB38D9514EE7 /* ImageStoreTests.swift in Sources */,
+				1F772BDFC99BA1D2C279E3C0 /* MediaCodingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

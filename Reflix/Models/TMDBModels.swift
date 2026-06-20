@@ -29,9 +29,10 @@ struct TMDBMedia: Codable, Identifiable, Hashable {
     let mediaTypeRaw: String?
     let genreIds: [Int]?
 
-    /// Filled in from the calling endpoint when TMDB omits `media_type`.
-    /// Not in `CodingKeys`, so it is neither decoded from TMDB nor persisted to
-    /// the cache — `resolvedType`'s inference covers every cached endpoint.
+    /// Filled in from the calling endpoint (via `tag`) when TMDB omits
+    /// `media_type`. Persisted under `persistedType` so a cache round-trip keeps
+    /// `resolvedType` — and therefore navigation — correct even when the type
+    /// can't be re-inferred (e.g. a TV item whose `first_air_date` is null).
     var forcedType: MediaType?
 
     enum CodingKeys: String, CodingKey {
@@ -44,6 +45,44 @@ struct TMDBMedia: Codable, Identifiable, Hashable {
         case voteAverage = "vote_average"
         case mediaTypeRaw = "media_type"
         case genreIds = "genre_ids"
+        // Cache-only: TMDB never sends this key, so a live decode leaves
+        // `forcedType` driven by `tag`; a cache decode restores the resolved type.
+        case persistedType = "rfx_resolved_type"
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(Int.self, forKey: .id)
+        title = try c.decodeIfPresent(String.self, forKey: .title)
+        name = try c.decodeIfPresent(String.self, forKey: .name)
+        overview = try c.decodeIfPresent(String.self, forKey: .overview)
+        posterPath = try c.decodeIfPresent(String.self, forKey: .posterPath)
+        backdropPath = try c.decodeIfPresent(String.self, forKey: .backdropPath)
+        profilePath = try c.decodeIfPresent(String.self, forKey: .profilePath)
+        releaseDate = try c.decodeIfPresent(String.self, forKey: .releaseDate)
+        firstAirDate = try c.decodeIfPresent(String.self, forKey: .firstAirDate)
+        voteAverage = try c.decodeIfPresent(Double.self, forKey: .voteAverage)
+        mediaTypeRaw = try c.decodeIfPresent(String.self, forKey: .mediaTypeRaw)
+        genreIds = try c.decodeIfPresent([Int].self, forKey: .genreIds)
+        forcedType = try c.decodeIfPresent(MediaType.self, forKey: .persistedType)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(id, forKey: .id)
+        try c.encodeIfPresent(title, forKey: .title)
+        try c.encodeIfPresent(name, forKey: .name)
+        try c.encodeIfPresent(overview, forKey: .overview)
+        try c.encodeIfPresent(posterPath, forKey: .posterPath)
+        try c.encodeIfPresent(backdropPath, forKey: .backdropPath)
+        try c.encodeIfPresent(profilePath, forKey: .profilePath)
+        try c.encodeIfPresent(releaseDate, forKey: .releaseDate)
+        try c.encodeIfPresent(firstAirDate, forKey: .firstAirDate)
+        try c.encodeIfPresent(voteAverage, forKey: .voteAverage)
+        try c.encodeIfPresent(mediaTypeRaw, forKey: .mediaTypeRaw)
+        try c.encodeIfPresent(genreIds, forKey: .genreIds)
+        // Persist the *resolved* type so cache round-trips keep navigation correct.
+        try c.encodeIfPresent(forcedType ?? resolvedType, forKey: .persistedType)
     }
 
     var displayTitle: String { title ?? name ?? "" }

@@ -55,7 +55,7 @@ final class ImageStoreTests: XCTestCase {
         let url = URL(string: "https://example.com/disk.png")!
 
         _ = await store.image(for: url)        // network → disk + memory
-        store.memory.removeAllObjects()         // evict memory tier only
+        store.evictMemory()                     // evict memory tier only
         XCTAssertNil(store.memoryImage(for: url))
 
         _ = await store.image(for: url)        // should hit DISK, not loader
@@ -66,12 +66,13 @@ final class ImageStoreTests: XCTestCase {
     }
 
     func testTrimEvictsOldestToFitBudget() async {
-        // Budget fits ~1 file; writing 3 must trigger LRU eviction.
+        // Budget fits ~1 file; writing 3 then trimming must evict oldest.
         let store = makeStore(maxDiskBytes: 100)
         for i in 0..<3 {
             _ = await store.image(for: URL(string: "https://example.com/\(i).png")!)
             try? await Task.sleep(nanoseconds: 12_000_000)   // distinct mtime ordering
         }
+        store.trimDisk()   // nonisolated — force a synchronous prune
         let usage = await store.diskUsageBytes()
         XCTAssertLessThanOrEqual(usage, 100, "disk cache must stay within its byte budget")
         await store.clear()

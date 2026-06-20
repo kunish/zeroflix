@@ -34,10 +34,17 @@ struct CachedAsyncImage<Placeholder: View>: View {
             return
         }
 
-        image = nil
+        // Keep the current image (if any) while the new one resolves rather than
+        // blanking to the placeholder up front — a disk hit (a few ms) then
+        // crossfades in with no gradient flash. Only a genuine failure falls
+        // back to the placeholder.
         let loaded = await ImageStore.shared.image(for: url)
         // The cell may have been reused for a different url while we awaited.
         guard !Task.isCancelled else { return }
-        withAnimation(.easeOut(duration: 0.35)) { image = loaded }
+        if let loaded {
+            withAnimation(.easeOut(duration: 0.35)) { image = loaded }
+        } else {
+            image = nil
+        }
     }
 }

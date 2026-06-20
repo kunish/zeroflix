@@ -110,6 +110,13 @@ final class LibraryStore: ObservableObject {
         if itemsByList.isEmpty { itemsByList = entry.payload }
     }
 
+    /// Clears in-memory library state on sign-out / account switch, then reloads
+    /// the per-user cached snapshot so account A's data never lingers for B.
+    func reset() {
+        itemsByList = [:]
+        Task { await loadCachedSnapshot() }
+    }
+
     func loadAll() async {
         isLoading = true
         defer { isLoading = false }
@@ -157,9 +164,16 @@ final class LibraryStore: ObservableObject {
             req.setValue("resolution=merge-duplicates,return=representation",
                          forHTTPHeaderField: "Prefer")
             req.httpBody = try JSONSerialization.data(withJSONObject: body)
-            let (_, response) = try await net.data(for: req)
+            let (data, response) = try await net.data(for: req)
             guard isSuccess(response) else { await rollback(to: previous); return }
-            await loadAll()   // reconcile with server-assigned ids / ordering
+            // Replace the optimistic row with the server row (real id) in place —
+            // a full loadAll() here could clobber a concurrent optimistic write on
+            // another list (last-writer-wins flicker / lost item).
+            if let rows = try? JSONDecoder().decode([LibraryItem].self, from: data),
+               let row = rows.first {
+                replaceOptimistic(with: row, in: list)
+                await persistSnapshot()
+            }
         } catch {
             await rollback(to: previous)
         }
@@ -219,6 +233,18 @@ final class LibraryStore: ObservableObject {
         guard !arr.contains(where: { $0.tmdbId == item.tmdbId && $0.mediaType == item.mediaType })
         else { return }
         arr.insert(item, at: 0)
+        itemsByList[list.apiValue] = arr
+    }
+
+    /// Swaps a just-confirmed server row (with its real id) in for the matching
+    /// optimistic row, without disturbing other lists' concurrent writes.
+    private func replaceOptimistic(with row: LibraryItem, in list: LibraryList) {
+        var arr = itemsByList[list.apiValue] ?? []
+        if let idx = arr.firstIndex(where: { $0.tmdbId == row.tmdbId && $0.mediaType == row.mediaType }) {
+            arr[idx] = row
+        } else {
+            arr.insert(row, at: 0)
+        }
         itemsByList[list.apiValue] = arr
     }
 

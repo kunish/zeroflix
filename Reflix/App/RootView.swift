@@ -18,6 +18,11 @@ struct RootView: View {
             }
         }
         .animation(.easeInOut(duration: 0.35), value: auth.isAuthenticated)
+        // Sign-out / account-switch: drop the previous user's in-memory library
+        // so it can't linger for the next account (disk is already per-user keyed).
+        .onChange(of: auth.session?.userId) { _, _ in
+            library.reset()
+        }
         .task { await debugAutoLoginIfNeeded() }
     }
 
