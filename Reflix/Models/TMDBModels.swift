@@ -136,6 +136,12 @@ struct TMDBImages: Codable, Hashable {
     let backdrops: [TMDBImage]
 }
 
+/// IMDb id for cross-referencing OpenSubtitles (movies are most reliable).
+struct TMDBExternalIds: Codable, Hashable {
+    let imdbId: String?
+    enum CodingKeys: String, CodingKey { case imdbId = "imdb_id" }
+}
+
 struct TMDBDetail: Codable, Identifiable {
     let id: Int
     let title: String?
@@ -155,9 +161,11 @@ struct TMDBDetail: Codable, Identifiable {
     let credits: TMDBCredits?
     let similar: TMDBPagedResponse<TMDBMedia>?
     let images: TMDBImages?
+    let externalIds: TMDBExternalIds?
 
     enum CodingKeys: String, CodingKey {
         case id, title, name, overview, runtime, genres, tagline, credits, similar, images
+        case externalIds = "external_ids"
         case posterPath = "poster_path"
         case backdropPath = "backdrop_path"
         case releaseDate = "release_date"

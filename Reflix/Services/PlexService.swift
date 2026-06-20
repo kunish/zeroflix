@@ -27,13 +27,16 @@ struct PlexService {
         else { return [] }
 
         return resources.filter(\.isServer).compactMap { res in
-            let uris = orderedURIs(res.connections ?? [])
+            let connections = res.connections ?? []
+            let uris = orderedURIs(connections)
             guard !uris.isEmpty else { return nil }
+            let relayURIs = Set(connections.filter { $0.relay == true }.compactMap { URL(string: $0.uri) })
             return PlexServer(
                 name: res.name,
                 machineIdentifier: res.clientIdentifier,
                 accessToken: res.accessToken ?? token,
-                connectionURIs: uris
+                connectionURIs: uris,
+                relayURIs: relayURIs
             )
         }
     }
@@ -110,6 +113,136 @@ struct PlexService {
             .addingPercentEncoding(withAllowedCharacters: .alphanumerics) ?? ratingKey
         return URL(string: "https://app.plex.tv/desktop/#!/server/\(machineID)/details?key=\(key)")!
     }
+
+    // MARK: Playback
+
+    private static let directContainers: Set<String> = ["mp4", "m4v", "mov"]
+    private static let directVideoCodecs: Set<String> = ["h264", "hevc"]
+    private static let directAudioCodecs: Set<String> = ["aac"]
+
+    /// Resolves a stream URL for `ratingKey`: direct play when AVPlayer can
+    /// handle the file as-is, otherwise an HLS transcode session.
+    func fetchPlayable(server: PlexServer, ratingKey: String) async -> PlexPlayable? {
+        for base in server.connectionURIs {
+            guard let meta = await fetchMetadata(base: base, token: server.accessToken, ratingKey: ratingKey),
+                  let media = meta.media?.first,
+                  let part = media.parts?.first
+            else { continue }  // unreachable / no media → next connection
+
+            let title = meta.title ?? "正在播放"
+            let durationMs = part.duration ?? media.duration ?? meta.duration
+            let duration = durationMs.map { Double($0) / 1000 }
+
+            // Relay connections throttle bandwidth and only proxy transcode
+            // streams, so never serve a raw-file direct link over them.
+            let isRelay = server.relayURIs.contains(base)
+            if canDirectPlay(media), !isRelay, let key = part.key,
+               let url = directURL(base: base, key: key, token: server.accessToken) {
+                return PlexPlayable(url: url, isTranscoded: false, title: title,
+                                    durationSeconds: duration, base: base,
+                                    token: server.accessToken, session: nil)
+            }
+
+            let session = UUID().uuidString
+            let url = transcodeURL(base: base, ratingKey: ratingKey, token: server.accessToken,
+                                   session: session, resolution: media.pixelResolution,
+                                   maxBitrate: media.bitrate)
+            return PlexPlayable(url: url, isTranscoded: true, title: title,
+                                durationSeconds: duration, base: base,
+                                token: server.accessToken, session: session)
+        }
+        return nil
+    }
+
+    /// Releases a transcode session so the server stops the ffmpeg process.
+    func stopTranscode(base: URL, token: String, sessionID: String) async {
+        guard var comps = URLComponents(url: base, resolvingAgainstBaseURL: false) else { return }
+        comps.path = "/video/:/transcode/universal/stop"
+        comps.queryItems = [
+            URLQueryItem(name: "session", value: sessionID),
+            URLQueryItem(name: "X-Plex-Token", value: token),
+            URLQueryItem(name: "X-Plex-Client-Identifier", value: KeyStore.plexClientID),
+        ]
+        guard let url = comps.url else { return }
+        _ = try? await session.data(from: url)
+    }
+
+    private func canDirectPlay(_ media: PlexMedia) -> Bool {
+        guard let container = media.container?.lowercased(),
+              Self.directContainers.contains(container),
+              let video = media.videoCodec?.lowercased(),
+              Self.directVideoCodecs.contains(video),
+              let audio = media.audioCodec?.lowercased(),
+              Self.directAudioCodecs.contains(audio)
+        else { return false }
+        return true
+    }
+
+    private func fetchMetadata(base: URL, token: String, ratingKey: String) async -> PlexMetadata? {
+        guard var comps = URLComponents(url: base, resolvingAgainstBaseURL: false) else { return nil }
+        comps.path = "/library/metadata/\(ratingKey)"
+        comps.queryItems = [URLQueryItem(name: "checkFiles", value: "1")]
+        guard let url = comps.url else { return nil }
+
+        var req = URLRequest(url: url)
+        req.setValue("application/json", forHTTPHeaderField: "Accept")
+        req.setValue(token, forHTTPHeaderField: "X-Plex-Token")
+        PlexAuth.headers(token: token).forEach { req.setValue($1, forHTTPHeaderField: $0) }
+
+        guard let (data, response) = try? await session.data(for: req),
+              let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode),
+              let container = try? JSONDecoder().decode(PlexMediaContainerResponse.self, from: data)
+        else { return nil }
+        return container.mediaContainer.metadata?.first
+    }
+
+    /// Direct file URL — token in the query because AVPlayer can't attach
+    /// headers to its segment/range requests.
+    private func directURL(base: URL, key: String, token: String) -> URL? {
+        guard var comps = URLComponents(url: base, resolvingAgainstBaseURL: false) else { return nil }
+        comps.path = key
+        comps.queryItems = [
+            URLQueryItem(name: "X-Plex-Token", value: token),
+            URLQueryItem(name: "X-Plex-Client-Identifier", value: KeyStore.plexClientID),
+        ]
+        return comps.url
+    }
+
+    /// Universal transcoder → HLS playlist. `subtitles=none` because we overlay
+    /// OpenSubtitles ourselves; `directStream=1` copies compatible tracks.
+    private func transcodeURL(base: URL, ratingKey: String, token: String,
+                              session: String, resolution: String?, maxBitrate: Int?) -> URL {
+        var comps = URLComponents(url: base, resolvingAgainstBaseURL: false)!
+        comps.path = "/video/:/transcode/universal/start.m3u8"
+        var items: [URLQueryItem] = [
+            URLQueryItem(name: "path", value: "/library/metadata/\(ratingKey)"),
+            URLQueryItem(name: "mediaIndex", value: "0"),
+            URLQueryItem(name: "partIndex", value: "0"),
+            URLQueryItem(name: "protocol", value: "hls"),
+            URLQueryItem(name: "directPlay", value: "0"),
+            URLQueryItem(name: "directStream", value: "1"),
+            URLQueryItem(name: "fastSeek", value: "1"),
+            URLQueryItem(name: "offset", value: "0"),
+            URLQueryItem(name: "subtitles", value: "none"),
+            URLQueryItem(name: "audioBoost", value: "100"),
+            URLQueryItem(name: "videoQuality", value: "100"),
+            URLQueryItem(name: "session", value: session),
+            URLQueryItem(name: "X-Plex-Session-Identifier", value: session),
+            URLQueryItem(name: "X-Plex-Token", value: token),
+            URLQueryItem(name: "X-Plex-Client-Identifier", value: KeyStore.plexClientID),
+            URLQueryItem(name: "X-Plex-Product", value: AppConfig.plexProduct),
+            URLQueryItem(name: "X-Plex-Version", value: AppConfig.plexVersion),
+            URLQueryItem(name: "X-Plex-Platform", value: "iOS"),
+            URLQueryItem(name: "X-Plex-Device", value: "iPhone"),
+            URLQueryItem(name: "X-Plex-Device-Name", value: "Reflix"),
+        ]
+        if let resolution { items.append(URLQueryItem(name: "videoResolution", value: resolution)) }
+        if let maxBitrate, maxBitrate > 0 {
+            items.append(URLQueryItem(name: "maxVideoBitrate", value: String(maxBitrate)))
+        }
+        comps.queryItems = items
+        return comps.url!
+    }
 }
 
 /// Observable Plex connection state shared across the app.
@@ -168,11 +301,24 @@ final class PlexStore: ObservableObject {
                 return PlexMatch(
                     serverName: server.name,
                     resolution: meta.resolutionLabel,
+                    server: server,
+                    ratingKey: ratingKey,
                     deepLink: service.deepLink(machineID: server.machineIdentifier, ratingKey: ratingKey)
                 )
             }
         }
         return nil
+    }
+
+    /// Resolves a concrete stream URL for in-app playback.
+    func resolvePlayable(_ match: PlexMatch) async -> PlexPlayable? {
+        await service.fetchPlayable(server: match.server, ratingKey: match.ratingKey)
+    }
+
+    /// Tears down a transcode session when playback ends.
+    func stopPlayback(_ playable: PlexPlayable) async {
+        guard let session = playable.session else { return }
+        await service.stopTranscode(base: playable.base, token: playable.token, sessionID: session)
     }
 
     private func persist(_ cred: PlexCredential) {

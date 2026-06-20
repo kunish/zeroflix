@@ -21,16 +21,22 @@ targets:
     platform: iOS
     sources:
       - path: Reflix
+    info:
+      path: Reflix/Info.plist
+      properties:
+        CFBundleDisplayName: Reflix
+        UIUserInterfaceStyle: Dark
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        # Keep audio playing when the screen locks / the app backgrounds.
+        UIBackgroundModes:
+          - audio
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.kunish.reflix
-        GENERATE_INFOPLIST_FILE: "YES"
         # Lets ReflixTests use `@testable import Reflix`.
         ENABLE_TESTABILITY: "YES"
-        INFOPLIST_KEY_CFBundleDisplayName: Reflix
-        INFOPLIST_KEY_UIUserInterfaceStyle: Dark
-        INFOPLIST_KEY_UILaunchScreen_Generation: "YES"
-        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
         ENABLE_PREVIEWS: "YES"
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
   ReflixTests:

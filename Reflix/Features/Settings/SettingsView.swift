@@ -7,6 +7,8 @@ struct SettingsView: View {
     @State private var showKeyEditor = false
     @State private var cacheSize = 0
     @State private var isClearingCache = false
+    @State private var showSubtitleEditor = false
+    @State private var subtitlesConfigured = OpenSubtitlesService.isConfigured
 
     var body: some View {
         NavigationStack {
@@ -16,6 +18,7 @@ struct SettingsView: View {
                     VStack(spacing: 18) {
                         accountCard
                         plexCard
+                        subtitleCard
                         tmdbCard
                         cacheCard
                         signOutButton
@@ -32,8 +35,33 @@ struct SettingsView: View {
                 }
             }
             .sheet(isPresented: $showKeyEditor) { KeyEditorView() }
+            .sheet(isPresented: $showSubtitleEditor, onDismiss: {
+                subtitlesConfigured = OpenSubtitlesService.isConfigured
+            }) { OpenSubtitlesEditorView() }
         }
         .preferredColorScheme(.dark)
+    }
+
+    private var subtitleCard: some View {
+        Button { showSubtitleEditor = true } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "captions.bubble.fill")
+                    .font(.system(size: 18))
+                    .foregroundStyle(RFX.blue)
+                    .frame(width: 46, height: 46)
+                    .background(RFX.blue.opacity(0.18), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("OpenSubtitles 字幕").font(.system(size: 16, weight: .semibold)).foregroundStyle(.white)
+                    Text(subtitlesConfigured ? "已配置 · 播放时可在线加载字幕" : "未配置 · 填写 API Key 后启用")
+                        .font(.system(size: 13)).foregroundStyle(RFX.text3)
+                }
+                Spacer()
+                Image(systemName: "chevron.right").font(.system(size: 14, weight: .semibold)).foregroundStyle(RFX.text4)
+            }
+            .padding(18)
+            .background(RFX.card, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        }
+        .buttonStyle(.plain)
     }
 
     private var accountCard: some View {
@@ -263,5 +291,105 @@ struct KeyEditorView: View {
             .padding(.horizontal, 24)
         }
         .presentationBackground(.clear)
+    }
+}
+
+/// OpenSubtitles credentials editor. API Key is required; username/password are
+/// optional and raise the daily download quota.
+struct OpenSubtitlesEditorView: View {
+    @Environment(\.dismiss) private var dismiss
+    @State private var apiKey: String
+    @State private var username: String
+    @State private var password: String
+
+    init() {
+        let config = OpenSubtitlesService.loadConfig()
+        _apiKey = State(initialValue: config?.apiKey ?? "")
+        _username = State(initialValue: config?.username ?? "")
+        _password = State(initialValue: config?.password ?? "")
+    }
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                RFX.bg.ignoresSafeArea()
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 18) {
+                        Text("在 opensubtitles.com 注册并在 Consumers 创建一个 API Consumer 获取 API Key。Key 与账号仅保存在本机钥匙串。")
+                            .font(.system(size: 13.5)).foregroundStyle(RFX.text3).lineSpacing(4)
+
+                        field("API Key（必填）", text: $apiKey, placeholder: "粘贴 API Key", secure: false)
+                        field("用户名（可选）", text: $username, placeholder: "OpenSubtitles 用户名", secure: false)
+                        field("密码（可选）", text: $password, placeholder: "用于提升下载配额", secure: true)
+
+                        HStack(spacing: 10) {
+                            Button {
+                                OpenSubtitlesService.clearConfig()
+                                dismiss()
+                            } label: {
+                                Text("清除").font(.system(size: 15, weight: .bold)).foregroundStyle(RFX.text2)
+                                    .frame(maxWidth: .infinity).padding(.vertical, 14)
+                                    .background(RFX.cardAlt, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                            }
+                            Button {
+                                save()
+                                dismiss()
+                            } label: {
+                                Text("保存").font(.system(size: 15, weight: .bold)).foregroundStyle(.white)
+                                    .frame(maxWidth: .infinity).padding(.vertical, 14)
+                                    .background(canSave ? RFX.accent : RFX.cardAlt,
+                                                in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                            }
+                            .disabled(!canSave)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .padding(20)
+                }
+                .rfxScroll()
+            }
+            .navigationTitle("OpenSubtitles")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("取消") { dismiss() }
+                }
+            }
+        }
+        .preferredColorScheme(.dark)
+    }
+
+    private var canSave: Bool {
+        !apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    private func save() {
+        let trimmedUser = username.trimmingCharacters(in: .whitespacesAndNewlines)
+        let config = OpenSubtitlesConfig(
+            apiKey: apiKey.trimmingCharacters(in: .whitespacesAndNewlines),
+            username: trimmedUser.isEmpty ? nil : trimmedUser,
+            password: password.isEmpty ? nil : password
+        )
+        OpenSubtitlesService.saveConfig(config)
+    }
+
+    @ViewBuilder
+    private func field(_ title: String, text: Binding<String>, placeholder: String, secure: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title).font(.system(size: 13, weight: .semibold)).foregroundStyle(RFX.text4)
+            Group {
+                if secure {
+                    SecureField(placeholder, text: text)
+                } else {
+                    TextField(placeholder, text: text)
+                }
+            }
+            .font(.system(size: 15)).foregroundStyle(.white)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .padding(14)
+            .background(RFX.card, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(.white.opacity(0.14), lineWidth: 0.5))
+        }
     }
 }

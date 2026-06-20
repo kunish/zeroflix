@@ -9,6 +9,7 @@ struct DetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
     @StateObject private var model: DetailViewModel
+    @State private var playerContext: PlayerContext?
 
     init(ref: MediaRef) {
         self.ref = ref
@@ -42,6 +43,22 @@ struct DetailView: View {
             await model.load()
             await model.loadPlexSource(plex)
         }
+        .fullScreenCover(item: $playerContext) { context in
+            PlayerView(context: context)
+                .environmentObject(plex)
+        }
+    }
+
+    /// Builds the player context from the matched Plex source + TMDB metadata.
+    private func play(_ match: PlexMatch) {
+        playerContext = PlayerContext(
+            match: match,
+            tmdbId: ref.id,
+            imdbId: model.detail?.externalIds?.imdbId,
+            title: model.detail?.displayTitle ?? match.serverName,
+            year: model.detail?.year,
+            mediaType: ref.type
+        )
     }
 
     // MARK: Toolbar (system nav bar → Liquid Glass + interactive swipe-back)
@@ -149,24 +166,39 @@ struct DetailView: View {
     }
 
     private func plexFoundCard(_ match: PlexMatch) -> some View {
-        Button {
-            openURL(match.deepLink)
-        } label: {
-            HStack(spacing: 12) {
-                Image(systemName: "play.circle.fill").font(.system(size: 22))
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("在 Plex 播放").font(.system(size: 17, weight: .heavy))
-                    Text(plexSubtitle(match)).font(.system(size: 12.5)).foregroundStyle(RFX.text2)
+        VStack(spacing: 8) {
+            Button {
+                play(match)
+            } label: {
+                HStack(spacing: 12) {
+                    Image(systemName: "play.circle.fill").font(.system(size: 22))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("播放").font(.system(size: 17, weight: .heavy))
+                        Text(plexSubtitle(match)).font(.system(size: 12.5)).foregroundStyle(RFX.text2)
+                    }
+                    Spacer()
+                    Image(systemName: "play.fill").font(.system(size: 15)).opacity(0.85)
                 }
-                Spacer()
-                Image(systemName: "arrow.up.forward.app").font(.system(size: 17)).opacity(0.8)
+                .foregroundStyle(.white)
+                .padding(.horizontal, 18)
+                .padding(.vertical, 16)
+                .glassRoundedRect(18, interactive: true, tint: Color(hex: 0xe5a00d))
             }
-            .foregroundStyle(.white)
-            .padding(.horizontal, 18)
-            .padding(.vertical, 16)
-            .glassRoundedRect(18, interactive: true, tint: Color(hex: 0xe5a00d))
+            .buttonStyle(.plain)
+
+            Button {
+                openURL(match.deepLink)
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: "arrow.up.forward.app").font(.system(size: 12))
+                    Text("用 Plex App 打开").font(.system(size: 12.5, weight: .semibold))
+                }
+                .foregroundStyle(RFX.text3)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
+            }
+            .buttonStyle(.plain)
         }
-        .buttonStyle(.plain)
     }
 
     private func plexSubtitle(_ match: PlexMatch) -> String {
